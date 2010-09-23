@@ -9,17 +9,20 @@ h2. Usage
 From the terminal:
 
 To create a stubbed directory in your current working directory called "mockup":
-<code>
+
+<pre><code>
   mockup  
-</code>
+</code></pre>
 
 Create a stubbed directory located on your desktop, called 'project':
-<code>
-  mockup project -l ~/Desktop
-</code>
 
-<code>
+<pre><code>
+  mockup project -l ~/Desktop
+</code></pre>
+
+<pre><code>
   mockup -h   # see help
+  
   mockup -v   # see version
-</code>
+</code></pre>
 
