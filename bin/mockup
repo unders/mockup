@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require 'mockup'
+
+
+name    = ARGV.first.nil? ? 'mockup' : ARGV.reverse!.pop
+options = Mockup::Options.parse(ARGV)
+Mockup::Project.create(name, options.location)
+location  = options.location.nil? || options.location == '' ? Dir.pwd : options.location
+puts "~ Your mockup, called #{name}, was created in the following directory: #{location}"
