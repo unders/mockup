@@ -11,18 +11,18 @@ From the terminal:
 To create a stubbed directory in your current working directory called "mockup":
 
 <pre><code>
-  mockup  
+mockup  
 </code></pre>
 
 Create a stubbed directory located on your desktop, called 'project':
 
 <pre><code>
-  mockup project -l ~/Desktop
+mockup project -l ~/Desktop
 </code></pre>
 
 <pre><code>
-  mockup -h   # see help
+mockup -h   # see help
   
-  mockup -v   # see version
+mockup -v   # see version
 </code></pre>
 
