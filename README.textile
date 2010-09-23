@@ -1,1 +1,25 @@
 h1. Mockup
+
+h2. Install
+
+gem install mockup
+
+h2. Usage
+
+From the terminal:
+
+To create a stubbed directory in your current working directory called "mockup":
+<code>
+  mockup  
+</code>
+
+Create a stubbed directory located on your desktop, called 'project':
+<code>
+  mockup project -l ~/Desktop
+</code>
+
+<code>
+  mockup -h   # see help
+  mockup -v   # see version
+</code>
+
