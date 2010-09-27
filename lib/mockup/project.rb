@@ -21,6 +21,16 @@ module Mockup
         FileUtils.mkdir_p(File.join(@location, 'sass'))
         FileUtils.mkdir_p(File.join(@location, 'tmp'))
         FileUtils.mkdir_p(File.join(@location, 'views/layouts'))
+        FileUtils.mkdir_p(File.join(@location, 'public'))
+        
+        # Move Compass files that were created.
+        FileUtils.mv(File.join(@location, 'images'), File.join(@location, 'public/'))
+        FileUtils.mv(File.join(@location, 'stylesheets'), File.join(@location, 'public/'))
+        FileUtils.mv(File.join(@location, 'javascripts'), File.join(@location, 'public/'))
+        
+        # Move default src (from compass create) to sass
+        FileUtils.mv(File.join(@location, 'src'), File.join(@location, 'sass'))
+        
         
         File.open(File.join(@location, "compass.config"), 'w+') { |f| f.puts compass_config }
         File.open(File.join(@location, "config.ru"), 'w+')      { |f| f.puts config_ru }
