@@ -1,32 +1,52 @@
 module Mockup
   class Options
-    
+
     def self.parse(args)
       options = OpenStruct.new
       
-      opts = ::OptionParser.new do |opts|
-        
-        opts.banner "Usage: You can just do 'mockup' and it will create a directory in your current working directory named 'mockup'. Or you can pass in options: mockup mockup_name -l /path/to/mockup"
-        
-        opts.on('-l', '--location LOCATION', 'The directory location you want your mockup to be created in. This defaults to the current working directory.') do |location|
+      ParseOptions.new(args) do |opts|
+
+        opts.value('create') do |name|
+          options.name = name
+        end
+
+        opts.boolean('convert') do |convert|
+          options.convert = !!convert
+        end
+
+        opts.value('-l', '--location') do |location|
           options.location = location
         end
         
-        opts.on_tail("-h", "--help", "Help Screen") do
-          puts opts
-          exit
+        opts.boolean('with-jquery') do |jquery|
+          options.jquery = !!jquery
         end
 
-        opts.on_tail("-v", "--version", "Show version") do
-          puts "Mockup is currently at version #{::Mockup.version}"
-          exit
+        opts.help('help') do
+          puts <<-HELP
+
+Usage: mockup create name --location /path/to/mockup
+
+Mockup Options:
+
+create:     The name of the mockup project. 
+              e.g. mockup create project
+-l:         Specify a location to create your mockup project. 
+              e.g. mockup create project -l /path/to/mockup
+convert:    Convert an existing Compass project to a mockup project. 
+              e.g. mockup convert
+with-jquery Install jQuery and jQuery UI
+
+          HELP
+          exit(0)
+        end
+
+        opts.version('-v', '--version') do
+          puts "Version Number 1"
+          exit(0)
         end
       end
-      
-      
-      opts.parse!(args)
       options
     end
-    
   end
 end

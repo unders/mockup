@@ -10,8 +10,8 @@ Gem::Specification.new do |gem|
   gem.date              = '2010-09-23'
   gem.platform          = Gem::Platform::RUBY
 
-  # gem.add_dependency              'hpricot',  '~> 0.8.2'
-  # gem.add_development_dependency  'rspec',    '~> 1.3.0'
+  gem.add_dependency              'serve',    '~> 0.11.7'
+  gem.add_development_dependency  'rspec',    '~> 1.3.0'
 
   gem.summary           = "summary"
   gem.description       = "Longer description."
@@ -21,12 +21,8 @@ Gem::Specification.new do |gem|
   gem.homepage          = 'http://github.com/revans/mockup'
 
   gem.rubyforge_project = nil
-  # gem.has_rdoc          = true
-  # gem.rdoc_options      = ['--main', 'README.rdoc', '--charset=UTF-8']
-  # gem.extra_rdoc_files  = ['README.rdoc', 'LICENSE', 'CHANGELOG.rdoc']
 
-
-  gem.files             = Dir.glob("{bin,lib}/**/*") + %w(LICENSE README.textile ROADMAP.textile CHANGELOG.textile Rakefile build.version)
+  gem.files             = Dir.glob("{bin,lib}/**/*") + %w(LICENSE README.textile Rakefile build.version)
   gem.executables       = ['mockup']
   gem.require_path      = 'lib'
 end

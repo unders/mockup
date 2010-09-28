@@ -1,10 +1,13 @@
 #!/usr/bin/env ruby
 
 require 'mockup'
-
-
-name    = ARGV.first.nil? ? 'mockup' : ARGV.reverse!.pop
-options = Mockup::Options.parse(ARGV)
-Mockup::Project.create(name, options.location)
+options   = Mockup::Options.parse(ARGV)
 location  = options.location.nil? || options.location == '' ? Dir.pwd : options.location
-puts "~ Your mockup, called #{name}, was created in the following directory: #{location}"
+
+if options.name.nil?
+  Mockup::Project.convert(options)
+  puts "~ Updated your compass project to utilize serve."
+else
+  Mockup::Project.create(options)
+  puts "~ Your mockup, called #{options.name}, was created in the following directory: #{location}"
+end

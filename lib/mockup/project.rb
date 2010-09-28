@@ -2,44 +2,64 @@ module Mockup
   class Project
     class << self
       
-      def create(name, location)
-        @name       = name
-        @location   = location ? File.join(File.expand_path(location), @name.underscore) : File.join(Dir.pwd, @name.underscore) 
+      attr_reader :location, :full_name, :name
+      
+      def create(options)
+        @name       = options.name
+        @location   = options.location ? File.join(File.expand_path(options.location), @name.underscore) : File.join(Dir.pwd, @name.underscore)
         @full_name  = git_config('user.name')   || 'Your Full Name'
         
-        create_files
-        touch_files
-        gitignore
-        install_juery
+        setup_base_project
+        
+        FileUtils.mkdir_p(File.join(@location, 'sass'))
+        FileUtils.mkdir_p(File.join(@location, 'public/images'))
+        FileUtils.mkdir_p(File.join(@location, 'public/stylesheets'))
+        File.open(File.join(@location, "compass.config"), 'w+') { |f| f.puts compass_config }
+        
+        install_jquery if options.jquery
       end
       
       
-      def create_files
-        FileUtils.mkdir_p(File.join(@location, 'public/images'))
-        FileUtils.mkdir_p(File.join(@location, 'public/javascripts'))
-        FileUtils.mkdir_p(File.join(@location, 'public/stylesheets'))
-        FileUtils.mkdir_p(File.join(@location, 'sass'))
+      def setup_base_project
+        FileUtils.mkdir_p(File.join(@location, 'public'))
         FileUtils.mkdir_p(File.join(@location, 'tmp'))
         FileUtils.mkdir_p(File.join(@location, 'views/layouts'))
-        FileUtils.mkdir_p(File.join(@location, 'public'))
+
+        FileUtils.touch(File.join(@location, 'README.mk'))
+        FileUtils.touch(File.join(@location, 'tmp/restart.txt'))
+        
+        File.open(File.join(@location, "config.ru"), 'w+')      { |f| f.puts config_ru }
+        
+        File.open(File.join(@location, "LICENSE"), 'w+')      { |f| f.puts license }
+        File.open(File.join(@location, ".gitignore"), 'w+')   { |f| f.puts gitignore }
+      end
+      
+      
+      
+      
+      
+      def convert(options)
+        @location   = options.location ? File.join(File.expand_path(options.location)) : Dir.pwd
+        @full_name  = git_config('user.name') || 'Your Full Name'
+        setup_base_project
         
         # Move Compass files that were created.
-        FileUtils.mv(File.join(@location, 'images'), File.join(@location, 'public/'))
-        FileUtils.mv(File.join(@location, 'stylesheets'), File.join(@location, 'public/'))
-        FileUtils.mv(File.join(@location, 'javascripts'), File.join(@location, 'public/'))
+
+        FileUtils.mv(File.join(@location, 'images'),      File.join(@location, 'public/')) if File.exists?(File.join(@location, 'images'))
+        FileUtils.mv(File.join(@location, 'stylesheets'), File.join(@location, 'public/')) if File.exists?(File.join(@location, 'stylesheets'))
+        FileUtils.mv(File.join(@location, 'javascripts'), File.join(@location, 'public/')) if File.exists?(File.join(@location, 'javascripts'))
         
         # Move default src (from compass create) to sass
         FileUtils.mv(File.join(@location, 'src'), File.join(@location, 'sass'))
+        FileUtils.cp(File.join(@location, 'config.rb'), File.join(@location, 'compass.config'))
         
-        
-        File.open(File.join(@location, "compass.config"), 'w+') { |f| f.puts compass_config }
-        File.open(File.join(@location, "config.ru"), 'w+')      { |f| f.puts config_ru }
-        File.open(File.join(@location, "LICENSE"), 'w+')        { |f| f.puts license }
+        install_jquery if options.jquery
       end
+
+
       
-      def touch_files
-        FileUtils.touch(File.join(@location, 'README'))
-      end
+      
+      
       
       def license
         <<-LICENSE
@@ -152,7 +172,8 @@ pkg
       end
       
       
-      def install_juery
+      def install_jquery
+        FileUtils.mkdir_p(File.join(@location, 'public/javascripts')) unless File.exists?(File.join(@location, 'javascripts'))
         `curl -o #{File.join(@location, 'public/javascripts/jquery.js')} http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js`
         `curl -o #{File.join(@location, 'public/javascripts/jquery_ui.js')} http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js`
       end
