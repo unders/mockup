@@ -176,6 +176,7 @@ pkg
         FileUtils.mkdir_p(File.join(@location, 'public/javascripts')) unless File.exists?(File.join(@location, 'javascripts'))
         `curl -o #{File.join(@location, 'public/javascripts/jquery.js')} http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js`
         `curl -o #{File.join(@location, 'public/javascripts/jquery_ui.js')} http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js`
+        FileUtils.touch(File.join(@location, 'public/javascripts/application.js'))
       end
       
       
