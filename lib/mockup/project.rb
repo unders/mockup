@@ -5,7 +5,7 @@ module Mockup
       attr_reader :location, :full_name, :name
       
       def create(options)
-        @name       = options.name
+        @name       = options.name || 'mockup'
         @location   = options.location ? File.join(File.expand_path(options.location), @name.underscore) : File.join(Dir.pwd, @name.underscore)
         @full_name  = git_config('user.name')   || 'Your Full Name'
         

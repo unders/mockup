@@ -22,7 +22,7 @@ module Mockup
           options.jquery = !!jquery
         end
 
-        opts.help('help') do
+        opts.help('help', '-h') do
           puts <<-HELP
 
 Usage: mockup create name --location /path/to/mockup
@@ -36,13 +36,16 @@ create:     The name of the mockup project.
 convert:    Convert an existing Compass project to a mockup project. 
               e.g. mockup convert
 with-jquery Install jQuery and jQuery UI
+              e.g. mockup create project with-jquery
+help        View the Help Screen
+version     View the current version of mockup
 
           HELP
           exit(0)
         end
 
-        opts.version('-v', '--version') do
-          puts "Version Number 1"
+        opts.version('-v', 'version') do
+          puts "Mockup's current version is #{Mockup.version}"
           exit(0)
         end
       end

@@ -6,23 +6,24 @@ gem install mockup
 
 h2. Usage
 
-From the terminal:
+From the terminal do 'mockup help' to see:
 
-To create a stubbed directory in your current working directory called "mockup":
 
-<pre><code>
-mockup  
-</code></pre>
+<pre><code>  
+  Usage: mockup create name --location /path/to/mockup
 
-Create a stubbed directory located on your desktop, called 'project':
+  Mockup Options:
 
-<pre><code>
-mockup project -l ~/Desktop
-</code></pre>
-
-<pre><code>
-mockup -h   # see help
+  create:     The name of the mockup project. 
+                e.g. mockup create project
+  -l:         Specify a location to create your mockup project. 
+                e.g. mockup create project -l /path/to/mockup
+  convert:    Convert an existing Compass project to a mockup project. 
+                e.g. mockup convert
+  with-jquery Install jQuery and jQuery UI
+                e.g. mockup create project with-jquery
+  help        View the Help Screen
+  version     View the current version of mockup
   
-mockup -v   # see version
 </code></pre>
 
