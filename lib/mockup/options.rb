@@ -21,6 +21,14 @@ module Mockup
         opts.boolean('with-jquery') do |jquery|
           options.jquery = !!jquery
         end
+        
+        opts.boolean('with-mootools') do |mootools|
+          options.mootools = !!mootools
+        end
+        
+        opts.boolean('with-prototype') do |prototype|
+          options.prototype = !!prototype
+        end
 
         opts.help('help', '-h') do
           puts <<-HELP

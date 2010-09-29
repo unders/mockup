@@ -16,7 +16,8 @@ module Mockup
         FileUtils.mkdir_p(File.join(@location, 'public/stylesheets'))
         File.open(File.join(@location, "compass.config"), 'w+') { |f| f.puts compass_config }
         
-        install_jquery if options.jquery
+
+        install_javascript(options)
       end
       
       
@@ -53,7 +54,7 @@ module Mockup
         FileUtils.mv(File.join(@location, 'src'), File.join(@location, 'sass'))
         FileUtils.cp(File.join(@location, 'config.rb'), File.join(@location, 'compass.config'))
         
-        install_jquery if options.jquery
+        install_javascript(options)
       end
 
 
@@ -171,11 +172,40 @@ pkg
         IGNORE
       end
       
+      def install_javascript(options)
+        install_jquery      if options.jquery
+        install_mootools    if options.mootools
+        install_prototype   if options.prototype
+      end
+      
       
       def install_jquery
+        get_javascript_file('jquery',     'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js')
+        get_javascript_file('jquery_ui',  'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js')
+      end
+      
+
+      def install_mootools
+        get_javascript_file('mootools', 'http://ajax.googleapis.com/ajax/libs/mootools/1.2.4/mootools-yui-compressed.js')
+      end
+      
+      
+      def install_prototype
+        get_javascript_file('prototype', 'http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js')
+        get_javascript_file('scriptaculous', 'http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.3/scriptaculous.js')
+      end
+
+      
+      
+      def get_javascript_file(name, path)
+        create_javascript_dir
+        filename = File.join(@location, "public/javascripts/#{name}.js")
+        `curl -o #{filename} #{path}`
+      end
+      
+      
+      def create_javascript_dir
         FileUtils.mkdir_p(File.join(@location, 'public/javascripts')) unless File.exists?(File.join(@location, 'javascripts'))
-        `curl -o #{File.join(@location, 'public/javascripts/jquery.js')} http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js`
-        `curl -o #{File.join(@location, 'public/javascripts/jquery_ui.js')} http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js`
         FileUtils.touch(File.join(@location, 'public/javascripts/application.js'))
       end
       

@@ -1,4 +1,12 @@
+# ParseOptions
+# 
+# A bit more flexible than OptionParser from the ruby standard library.
+#
 class ParseOptions
+  
+  ##
+  # Initialize
+  #
   def initialize(args, &block)
     @args = args
     instance_eval(&block) if block_given?
@@ -6,19 +14,12 @@ class ParseOptions
   
   
   ##
-  # Version
-  #
-  def version(value, value2='', &block)
-    puts yield(block) if display_message(value, value2)
-  end
-  
-  
-  ##
   # Help Menu
   #
   def help(value, value2='', &block)
-    puts yield(block) if display_message(value, value2)
+    puts yield(block) if display_message?(value, value2)
   end
+  alias_method :version, :help
   
   
   ##
@@ -44,20 +45,8 @@ class ParseOptions
       next if found
       found = true if (v1.to_s == value.to_s || v2.to_s == value.to_s)
     end
-    yield found
+    block_given? ? yield(found) : found
   end
-  
-  
-  ##
-  # Display Message
-  #
-  def display_message(value, value2)
-    found = false
-    @args.each do |arg|
-      next if found
-      found = true if (value.to_s == arg.to_s || value2.to_s == arg.to_s)
-    end
-    found
-  end
+  alias_method :display_message?, :boolean
 
 end
