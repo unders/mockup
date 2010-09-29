@@ -37,16 +37,26 @@ Usage: mockup create name --location /path/to/mockup
 
 Mockup Options:
 
-create:     The name of the mockup project. 
-              e.g. mockup create project
--l:         Specify a location to create your mockup project. 
-              e.g. mockup create project -l /path/to/mockup
-convert:    Convert an existing Compass project to a mockup project. 
-              e.g. mockup convert
-with-jquery Install jQuery and jQuery UI
-              e.g. mockup create project with-jquery
-help        View the Help Screen
-version     View the current version of mockup
+create:           The name of the mockup project. 
+                    e.g. mockup create project
+                    
+-l:               Specify a location to create your mockup project. 
+                    e.g. mockup create project -l /path/to/mockup
+                    
+convert:          Convert an existing Compass project to a mockup project. 
+                    e.g. mockup convert
+                    
+with-jquery       Install jQuery and jQuery UI
+                    e.g. mockup create project with-jquery
+
+with-mootools     Install Mootools
+                    e.g. mockup create project with-mootools
+
+with-prototype   Install Prototype and Scriptaculous
+                    e.g. mockup create project with-prototype
+
+help              View the Help Screen
+version           View the current version of mockup
 
           HELP
           exit(0)
