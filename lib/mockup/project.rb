@@ -52,8 +52,9 @@ module Mockup
         
         # Move default src (from compass create) to sass
         FileUtils.mv(File.join(@location, 'src'), File.join(@location, 'sass'))
-        FileUtils.cp(File.join(@location, 'config.rb'), File.join(@location, 'compass.config'))
+        # FileUtils.cp(File.join(@location, 'config.rb'), File.join(@location, 'compass.config'))
         
+        File.open(File.join(@location, "compass.config"), 'w+') { |f| f.puts compass_config }
         install_javascript(options)
       end
 
