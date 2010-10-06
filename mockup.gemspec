@@ -7,14 +7,14 @@ require 'mockup/version'
 Gem::Specification.new do |gem|
   gem.name              = 'mockup'
   gem.version           = Mockup.version
-  gem.date              = '2010-09-23'
+  gem.date              = "#{Time.now.strftime("%Y-%m-%d")}"
   gem.platform          = Gem::Platform::RUBY
 
   gem.add_dependency              'serve',    '~> 0.11.7'
   gem.add_development_dependency  'rspec',    '~> 1.3.0'
 
-  gem.summary           = "summary"
-  gem.description       = "Longer description."
+  gem.summary           = "Mockup: Rapid Prototyping."
+  gem.description       = "Mockup: Rapid Prototyping using Compass, Sass, and Serve."
 
   gem.authors           = ['Robert R Evans']
   gem.email             = ['robert@codewranglers.org']
